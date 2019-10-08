@@ -33,6 +33,7 @@ const useMiddleware = app => {
 };
 
 const kickstartScheduler = () => {
+
     const cleanBlacklistJob = schedule(`*/10 * * * *`, cleanBlacklistCache);
 };
 
