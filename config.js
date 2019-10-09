@@ -7,6 +7,8 @@ import { schedule } from "node-cron";
 
 import { cleanBlacklistCache } from "./helpers/utils";
 
+import getPowiatListFromCoordinates from "./gusDrivers/getMatchingUnitsFromCoordinates";
+
 const setHeaders = res => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -32,7 +34,7 @@ const useMiddleware = app => {
     app.use(bodyParser.json());
 };
 
-const kickstartScheduler = () => {
+const kickstartScheduler = async () => {
 
     const cleanBlacklistJob = schedule(`*/10 * * * *`, cleanBlacklistCache);
 };
