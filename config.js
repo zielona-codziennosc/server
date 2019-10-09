@@ -17,7 +17,10 @@ const mongo_connect = () => {
     mongoose.set('useNewUrlParser', true);
     mongoose.set('useFindAndModify', false);
     mongoose.set('useUnifiedTopology', true);
-    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    const mongoUrl = process.env.NODE_ENV === "test" ? process.env.MONGO_URL_TEST : process.env.MONGO_URL;
+
+    mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 };
 
 const useMiddleware = app => {

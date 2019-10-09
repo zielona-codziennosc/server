@@ -15,7 +15,9 @@ export const validateParam = (schema, name) => {
 };
 
 export const stripAuthorizationHeader = (req, res, next) => {
+
         const result = Joi.validate({ header: req.header("Authorization") }, schema.jwt);
+
         if(result.error) {
             return res.status(400).json(result.error);
         }else{
@@ -44,18 +46,6 @@ export const validateBody = schema => {
 
 
 export const schema = {
-    user: {
-        post: Joi.object().keys({
-            email: Joi.string().required(),
-            nickname: Joi.string().required(),
-            password: Joi.string().min(6).required()
-        }),
-        patch: Joi.object().keys({
-            email: Joi.string(),
-            nickname: Joi.string(),
-            password: Joi.string().min(6)
-        })
-    },
     auth: {
         login: Joi.object().keys({
             googleIdToken: Joi.string().regex(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/).required()
