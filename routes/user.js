@@ -9,7 +9,7 @@ const router = expressPromiseRouter();
 
 
 router.route('/:userId')
-    .get(validateParam(schema.id, 'userId'), authenticate, Controller.get)
+    .get(validateParam(schema.id, 'userId'), stripAuthorizationHeader, authenticate, Controller.get)
     .delete(validateParam(schema.id, 'userId'), stripAuthorizationHeader, authenticate, Controller.remove);
 
 router.use(authRouter);
