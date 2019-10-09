@@ -9,16 +9,18 @@
     "dotenv": "^8.1.0",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
-    "flat-cache": "^2.0.1",
+    "google-auth-library": "^5.4.0",
     "helmet": "^3.15.0",
     "joi": "^14.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
-    "node-cron": "^2.0.3"
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0"
   },
   "scripts": {
     "start": "npm run assemble && node dist/index.js",
+    "test": "set NODE_ENV=test&& mocha \"./tests/**/*.js\"",
     "dev": "nodemon --exec babel-node index.js",
     "rollo": "babel ./ --out-dir dist/ --ignore ./.git/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "applyBabelPolyfillToBuild": "echo require('babel-polyfill'); | cat - dist/index.js > temp && mv temp dist/index.js",
@@ -31,7 +33,10 @@
     "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@babel/preset-env": "^7.0.0",
-    "@babel/register": "^7.0.0",
-    "babel-preset-env": "^1.7.0"
+    "@babel/register": "^7.6.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
   }
 }
