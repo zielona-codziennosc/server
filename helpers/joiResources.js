@@ -15,7 +15,9 @@ export const validateParam = (schema, name) => {
 };
 
 export const stripAuthorizationHeader = (req, res, next) => {
+
         const result = Joi.validate({ header: req.header("Authorization") }, schema.jwt);
+
         if(result.error) {
             return res.status(400).json(result.error);
         }else{

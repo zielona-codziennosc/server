@@ -13,4 +13,4 @@ const remove = async (req, res) => {
     res.status(202).json({ success: true });
 };
 
-export default { get, update, add, remove }
+export default { get, remove }

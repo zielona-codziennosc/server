@@ -17,7 +17,9 @@ config.kickstartScheduler();
 app.use('/user', userRouter);
 
 const port = process.env.PORT || 1200;
-app.listen(port, err => {
+const server = app.listen(port, err => {
     if(err) throw err;
     console.log(`> Ready on server http://localhost:${port}`)
 });
+
+export default server;
