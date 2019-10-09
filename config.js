@@ -3,11 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import { schedule } from "node-cron";
-
-import { cleanBlacklistCache } from "./helpers/utils";
-
-import getPowiatListFromCoordinates from "./gusDrivers/getMatchingUnitsFromCoordinates";
+import express from "express";
 
 const setHeaders = res => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -32,11 +28,11 @@ const useMiddleware = app => {
     app.use(helmet());
     app.use(morgan('dev'));
     app.use(bodyParser.json());
+    app.use(express.static('public'));
 };
 
-const kickstartScheduler = async () => {
+const kickstartScheduler = () => {
 
-    const cleanBlacklistJob = schedule(`*/10 * * * *`, cleanBlacklistCache);
 };
 
 export default { setHeaders, mongo_connect, useMiddleware, kickstartScheduler }

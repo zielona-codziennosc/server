@@ -60,12 +60,7 @@ export const schema = {
         login: Joi.object().keys({
             email: Joi.string().email().required(),
             password: Joi.string().min(6).required()
-        }),
-        register: Joi.object().keys({
-            email: Joi.string().email().required(),
-            password: Joi.string().min(6).required(),
-            nickname: Joi.string().min(3).required()
-        }),
+        })
     },
     id: Joi.object().keys({
         param: Joi.string().regex(/^[0-9a-fA-Z]{24}$/).required()

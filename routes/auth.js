@@ -12,8 +12,6 @@ router.route('/login')
 router.route('/logout')
     .post(stripAuthorizationHeader, Controller.logout);
 
-router.route("/register")
-    .post(validateBody(schema.auth.register), Controller.register);
 
 
 export default router;
