@@ -11,6 +11,8 @@
     "MONGO_URL": "@mongo_url",
     "JWT_SECRET": "@jwt_secret",
     "HERE_APP_ID": "@here_app_id",
-    "HERE_APP_SECRET": "@here_app_secret"
+    "HERE_APP_SECRET": "@here_app_secret",
+    "GOOGLE_CLIENT_ID": "@google_client_id",
+    "GOOGLE_AUDIENCE_CLIENT_ID": "@google_audience_client_id"
   }
 }

@@ -58,8 +58,7 @@ export const schema = {
     },
     auth: {
         login: Joi.object().keys({
-            email: Joi.string().email().required(),
-            password: Joi.string().min(6).required()
+            googleIdToken: Joi.string().regex(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/).required()
         })
     },
     id: Joi.object().keys({
