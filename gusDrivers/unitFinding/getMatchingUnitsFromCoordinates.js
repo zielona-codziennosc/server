@@ -1,4 +1,4 @@
-import gusRequest from "./gusRequest";
+import gusRequest from "../gusRequest";
 import getRegionFromCoordinates from "./getRegionFromCoordinates";
 
 export default async (coordinates) => {

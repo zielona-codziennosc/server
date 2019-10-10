@@ -10,6 +10,11 @@ export default async (endpoint, query={}) => {
 
 
     return await fetch(
-        `https://bdl.stat.gov.pl/api/v1/${endpoint}${queryString}`
+        `https://bdl.stat.gov.pl/api/v1/${endpoint}${queryString}`,
+        {
+            headers: {
+                "X-ClientId": process.env.GUS_API_KEY
+            }
+        }
     ).then(response => response.json());
 }
