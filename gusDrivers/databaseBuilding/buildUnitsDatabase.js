@@ -13,19 +13,23 @@ const neededVoivodeshipVariables = {
 
 export default async () => {
 
-    const allPowiaty = await getAllUnitsOfLevel("5");
-    const allVoivodeships = await getAllUnitsOfLevel("2");
-
-    const powiatyVariables = await grabVariablesForUnitOfLevel("5", neededPowiatVariables);
-    const voivodeshipVariables = await grabVariablesForUnitOfLevel("2", neededVoivodeshipVariables);
-
-    const detailedVoivodeships = mergeVariablesWithUnits(voivodeshipVariables, allVoivodeships);
-    const detailedPowiaty = mergeVariablesWithUnits(powiatyVariables, allPowiaty);
+    const assemblePromises = [assembleDetailedPowiaty(), assembleDetailedVoivodeships()];
+    const [detailedPowiaty, detailedVoivodeships] = await Promise.all(assemblePromises);
 
     const detailedUnits = {...detailedPowiaty, ...detailedVoivodeships};
 
-    console.log(detailedUnits);
 
     await saveUnits(detailedUnits);
+}
 
+const assembleDetailedVoivodeships = async () => {
+    const allVoivodeships = await getAllUnitsOfLevel("2");
+    const voivodeshipVariables = await grabVariablesForUnitOfLevel("2", neededVoivodeshipVariables);
+    return mergeVariablesWithUnits(voivodeshipVariables, allVoivodeships);
+};
+
+const assembleDetailedPowiaty = async () => {
+    const allPowiaty = await getAllUnitsOfLevel("5");
+    const powiatyVariables = await grabVariablesForUnitOfLevel("5", neededPowiatVariables);
+    return mergeVariablesWithUnits(powiatyVariables, allPowiaty);
 }
