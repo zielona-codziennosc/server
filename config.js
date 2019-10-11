@@ -5,8 +5,6 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import express from "express";
 
-import updateUnitsDatabase from "./gusDrivers/databaseBuilding/buildUnitsDatabase";
-
 const setHeaders = res => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -34,7 +32,6 @@ const useMiddleware = app => {
 };
 
 const kickstartScheduler = () => {
-    updateUnitsDatabase();
 };
 
 export default { setHeaders, mongo_connect, useMiddleware, kickstartScheduler }

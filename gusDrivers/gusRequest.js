@@ -16,5 +16,6 @@ export default async (endpoint, query={}) => {
                 "X-ClientId": process.env.GUS_API_KEY
             }
         }
-    ).then(response => response.json());
+    ).then(response => response.json())
+        .catch(console.error);
 }

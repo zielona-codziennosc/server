@@ -8,11 +8,11 @@ const UnitSchema = new Schema({
     averageFriendliness: { type: Number, default: 1 },
     averageStreak: {type: Number, default: 0 },
     population: {type: Number},
-    waterConsumptionPerCapita: {type: Number},
-    recycledWastePerCapita: {type: Number},
-    publicTransportRidesPerCapita: {type: Number},
-    wastePerCapita: {type: Number}
-});
+    averageDailyWaterConsumption: {type: Number},
+    averageDailyWasteProduction: {type: Number},
+    recycledWastePercentage: {type: Number},
+    ecoCommutersPercentage: {type: Number}
+}, {strict: true});
 
 UnitSchema.pre(['save', 'findOneAndUpdate', 'findByIdAndUpdate'], ensureFieldUniquity("gusId"));
 

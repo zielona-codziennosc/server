@@ -13,6 +13,7 @@ export const getAllUnitsOfLevel = async (level) => {
             break;
     }
 
+
     return normalizeGusResultArray(allUnits);
 };
 
@@ -21,20 +22,20 @@ export const grabVariablesForUnitOfLevel = async (level, requestedVariables) => 
     const resultingVariables = {};
 
     for(const variableName in requestedVariables) {
-        const variableId = requestedVariables[variableName];
-        resultingVariables[variableName] = await grabOneVariableForUnitOfLevel(level, variableId)
+        const {variableId, year} = requestedVariables[variableName];
+        resultingVariables[variableName] = await grabOneVariableForUnitOfLevel(level, variableId, year)
     }
 
     return resultingVariables;
 };
 
-export const grabOneVariableForUnitOfLevel = async (level, variableId) => {
+export const grabOneVariableForUnitOfLevel = async (level, variableId, year) => {
     let variableRecords = [];
-
 
     for(let i=0; i<5; i++) {
         const variableSheet = await gusRequest(`/data/by-variable/${variableId}`,
-            {"unit-level": level, page: i, "page-size": "100", year: "2018"});
+            {"unit-level": level, page: i, "page-size": "100", year});
+
 
         variableRecords = [...variableRecords, ...variableSheet.results];
 
