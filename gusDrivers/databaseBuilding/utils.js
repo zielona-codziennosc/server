@@ -1,21 +1,22 @@
 import gusRequest from "../gusRequest";
 import Unit from "../../models/unit";
 
-export const getAllPowiaty = async () => {
+export const getAllUnitsOfLevel = async (level) => {
 
-    let allPowiaty = [];
+    let allUnits = [];
 
     for(let i=0; i<5; i++) {
-        const powiatySheet = await gusRequest(`/units`, {level: "5", page: i, "page-size": "100"});
+        const unitsSheet = await gusRequest(`/units`, {level, page: i, "page-size": "100"});
 
-        allPowiaty = [...allPowiaty, ...powiatySheet.results];
+        allUnits = [...allUnits, ...unitsSheet.results];
 
-        if(!powiatySheet?.links?.next)
+        if(!unitsSheet?.links?.next)
             break;
     }
 
-    return allPowiaty;
+    return allUnits;
 };
+
 
 export const grabStatisticalVariables = async () => {
 
