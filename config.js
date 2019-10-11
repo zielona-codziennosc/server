@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import express from "express";
 
-import updateUnitsDatabase from "./gusDrivers/databaseBuilding/updateUnitsDatabase";
+import updateUnitsDatabase from "./gusDrivers/databaseBuilding/buildUnitsDatabase";
 
 const setHeaders = res => {
     res.setHeader('Access-Control-Allow-Origin', '*');
