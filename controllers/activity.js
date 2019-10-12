@@ -9,7 +9,7 @@ const coordinates = async (req, res) => {
         const matchingVoivodeship = matchingUnits.find( unit => unit.level === 2);
 
         if(set)
-            await User.findByIdAndUpdate(userId, {gusUnitId: matchingVoivodeship.id});
+            await User.findByIdAndUpdate(userId, {gusVoivodeshipUnitId: matchingVoivodeship.id});
 
         res.status(200).json({success: true, matchingUnits});
     }
@@ -20,14 +20,13 @@ const coordinates = async (req, res) => {
 };
 
 const daily = async (req, res) => {
-    const {
-        body: {waterConsumption, commute, plasticContainers},
-        params: {userId}
-    } = req.value;
+    const {body, params: {userId}} = req.value;
 
+    const user = await User.findById(userId);
 
+    const result = await user.todaysActivity(body);
 
-
+    res.status(200).json({success: true, result});
 };
 
 export default {coordinates, daily};
