@@ -31,7 +31,7 @@ const sharedNormalizers = [
         delete entity.waterConsumptionPerCapita;
         delete entity.industrialShareOfUsedWater;
     },
-    entity => (entity.averageDailyWasteProduction = Number(Number((entity.wastePerCapita / entity.population)*1000 / 365).toFixed(2) )) && delete entity.wastePerCapita,
+    entity => (entity.averageDailyPlasticProduction = Number((Number((entity.wastePerCapita / entity.population)*1000 / 365) * 0.12).toFixed(2) )) && delete entity.wastePerCapita,
 ];
 
 export const powiatNormalizers = [
@@ -53,7 +53,7 @@ export const voivodeshipNormalizers = [
         delete entity.unemploymentRate;
 
         //since we applied discriminatory effects on our variable, we have to express the best-case scenario now by adding a constant to our value
-        entity.ecoCommutersPercentage = Math.round(dailyEcoCommuters / totalCommuters) + 20;
+        entity.publicCommutersPercentage = Math.round(dailyEcoCommuters / totalCommuters) + 20;
     }
 ];
 

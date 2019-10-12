@@ -19,4 +19,15 @@ const coordinates = async (req, res) => {
 
 };
 
-export default {coordinates};
+const daily = async (req, res) => {
+    const {
+        body: {waterConsumption, commute, plasticContainers},
+        params: {userId}
+    } = req.value;
+
+
+
+
+};
+
+export default {coordinates, daily};

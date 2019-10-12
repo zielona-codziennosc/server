@@ -66,6 +66,11 @@ export const schema = {
             coordinates: Joi.string().regex(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).required(),
             set: Joi.boolean().default(false)
         }),
+        daily : Joi.object().keys({
+            waterConsumption: Joi.number().min(0).required(),
+            commute: Joi.string().valid(["bus", "eco", "car", "none"]).required(),
+            plasticContainers: Joi.string().min(0).required()
+        })
     },
     id: Joi.object().keys({
         param: Joi.string().regex(/^[0-9a-fA-Z]{24}$/).required()
