@@ -1,7 +1,6 @@
 import {mergeVariablesWithUnits, saveUnits, applyNormalizersToVariables} from "./utils";
 import {getAllUnitsOfLevel, grabVariablesForUnitOfLevel} from "./apiCallingUtils";
-import {voivodeshipNormalizers, powiatNormalizers} from "./normalizers";
-import {neededVoivodeshipVariables, neededPowiatVariables} from "./neededVariables";
+import {neededVoivodeshipVariables, neededPowiatVariables, voivodeshipNormalizers, powiatNormalizers} from "./config";
 
 export default async () => {
 

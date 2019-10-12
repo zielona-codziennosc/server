@@ -1,18 +1,15 @@
 import {smashVariables, applyNormalizersToVariables, updateUnits} from "./utils";
 import {grabVariablesForUnitOfLevel} from "./apiCallingUtils";
-import {voivodeshipNormalizers, powiatNormalizers} from "./normalizers";
-import {neededVoivodeshipVariables, neededPowiatVariables} from "./neededVariables";
-
+import {neededVoivodeshipVariables, neededPowiatVariables, voivodeshipNormalizers, powiatNormalizers} from "./config";
 
 
 export default async () => {
-
     const assemblePromises = [assemblePowiatUpdate(), assembleVoivodeshipVariables()];
 
     const [powiatUpdates, voivodeshipUpdates] = await Promise.all(assemblePromises);
 
     await updateUnits({...powiatUpdates, ...voivodeshipUpdates});
-}
+};
 
 const assemblePowiatUpdate = async () => {
     let powiatVariables = await grabVariablesForUnitOfLevel("5", neededPowiatVariables);
