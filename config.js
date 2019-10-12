@@ -4,7 +4,9 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import express from "express";
+import {schedule} from "node-cron";
 
+import { dailyVariableCleanup } from "./helpers/utils";
 import updateUnits from "./gusDrivers/databaseBuilding/buildUnitsDatabase";
 
 const setHeaders = res => {
@@ -34,7 +36,7 @@ const useMiddleware = app => {
 };
 
 const kickstartScheduler = () => {
-
+    const dailyVariableCleanupJob = schedule("0 1 * * *", dailyVariableCleanup);
 };
 
 export default { setHeaders, mongo_connect, useMiddleware, kickstartScheduler }

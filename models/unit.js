@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-import { ensureFieldUniquity } from "./utils";
+import ensureFieldUniquity from "./utils/ensureFieldUniquity";
 
 const UnitSchema = new Schema({
     gusId: { type: String},
