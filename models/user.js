@@ -12,4 +12,4 @@ UserSchema.pre(['save', 'findOneAndUpdate', 'findByIdAndUpdate'], ensureFieldUni
 
 UserSchema.static("accountOfEmail", accountOfEmail);
 
-export default model('User', UserSchema);
+export default model('user', UserSchema);
