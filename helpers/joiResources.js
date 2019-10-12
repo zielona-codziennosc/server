@@ -61,6 +61,12 @@ export const schema = {
             googleIdToken: Joi.string().regex(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/).required()
         })
     },
+    activity: {
+        coordinates: Joi.object().keys({
+            coordinates: Joi.string().regex(/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/).required(),
+            set: Joi.boolean().default(false)
+        }),
+    },
     id: Joi.object().keys({
         param: Joi.string().regex(/^[0-9a-fA-Z]{24}$/).required()
     }),

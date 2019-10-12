@@ -40,6 +40,7 @@ export const powiatNormalizers = [
 
 export const voivodeshipNormalizers = [
     ...sharedNormalizers,
+    entity => entity.isVoivodeship = true,
     entity => {
         //first we normalize the value; in this case it's given in millions
         entity.publicTransportRidesPerCapita *= 1000000;

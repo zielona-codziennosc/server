@@ -9,6 +9,7 @@ export default async (coordinates) => {
     const powiatList =  await getPowiatListFromGus(voivodeship.id, region.County);
 
     return [...powiatList, voivodeship];
+
 };
 
 export const getVoivodeshipFromGus = async (voivodeshipName) => {

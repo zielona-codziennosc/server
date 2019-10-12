@@ -34,6 +34,7 @@ const useMiddleware = app => {
 };
 
 const kickstartScheduler = () => {
+    updateUnits();
 };
 
 export default { setHeaders, mongo_connect, useMiddleware, kickstartScheduler }

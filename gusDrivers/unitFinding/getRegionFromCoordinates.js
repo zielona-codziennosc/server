@@ -14,7 +14,7 @@ export default async (coordinates) => {
     let {Location: {Address: {State, County, Country}}} = View[0].Result[0];
 
     if(Country !== "POL")
-        return {isPoland: false};
+        throw "Fed coordinates do not point to the Polish state territory.";
 
     State = State.split("Woj.")?.[1]?.trim?.() || State;
     County = County.split("Powiat")?.[1]?.trim?.() || County;

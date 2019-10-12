@@ -5,8 +5,9 @@ import { validateBody, schema } from '../helpers/joiResources';
 
 const router = expressPromiseRouter();
 
+
 router.route("/coordinates")
-    .post(validateBody(schema.activity.coordinates), Controller.coordinates)
+    .post(validateBody(schema.activity.coordinates), Controller.coordinates);
 
 
 export default router;
