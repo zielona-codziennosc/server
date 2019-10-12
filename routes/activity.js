@@ -9,5 +9,7 @@ const router = expressPromiseRouter();
 router.route("/coordinates")
     .post(validateBody(schema.activity.coordinates), Controller.coordinates);
 
+router.route("/daily")
+    .post(validateBody(schema.activity.daily), Controller.daily);
 
 export default router;
