@@ -9,6 +9,7 @@ export default async () => {
     const [powiatUpdates, voivodeshipUpdates] = await Promise.all(assemblePromises);
 
     await updateUnits({...powiatUpdates, ...voivodeshipUpdates});
+    console.log("Done updating the database.");
 };
 
 const assemblePowiatUpdate = async () => {

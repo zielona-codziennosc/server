@@ -45,15 +45,13 @@ export const voivodeshipNormalizers = [
         //first we normalize the value; in this case it's given in millions
         entity.publicTransportRidesPerCapita *= 1000000;
         //We estimate the number of public transport rides in working days only, and then divide it by the number of working days
-        const dailyEcoCommuters = ((entity.publicTransportRidesPerCapita / (365+114)) / 2);
-        const totalCommuters = Math.round(entity.workingAgePopulation * ((100 - entity.unemploymentRate )/ 10000));
+        const dailyPublicCommuters = Math.round((entity.publicTransportRidesPerCapita / (365+114)) / 2);
+        const totalCommuters = Math.round(entity.workingAgePopulation * ((100 - entity.unemploymentRate )/ 100));
 
-        delete entity.publicTransportRidesPerCapita;
-        delete entity.workingAgePopulation;
-        delete entity.unemploymentRate;
 
-        //since we applied discriminatory effects on our variable, we have to express the best-case scenario now by adding a constant to our value
-        entity.publicCommutersPercentage = Math.round(dailyEcoCommuters / totalCommuters) + 20;
+        entity.dailyCarbonFootprintNow = Math.round((dailyPublicCommuters * 0.069) + ((totalCommuters - dailyPublicCommuters) * 0.133));
+        entity.dailycarbonFootprintWithPublicTransport = Math.round(totalCommuters * 0.069);
+        entity.dailycarbonFootprintWithAllCars = Math.round(totalCommuters * 0.133);
     }
 ];
 

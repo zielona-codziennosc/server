@@ -68,7 +68,7 @@ export const schema = {
         }),
         daily : Joi.object().keys({
             waterConsumption: Joi.number().min(0).required(),
-            commute: Joi.string().valid(["bus", "eco", "car", "none"]).required(),
+            commute: Joi.string().valid(["bus", "eco", "car"]).required(),
             plasticWeight: Joi.number().min(0).required()
         })
     },

@@ -7,11 +7,11 @@ export default async () => {
     const assemblePromises = [assembleDetailedPowiaty(), assembleDetailedVoivodeships()];
     const [detailedPowiaty, detailedVoivodeships] = await Promise.all(assemblePromises);
 
-
-
     const detailedUnits = {...detailedPowiaty, ...detailedVoivodeships};
 
+
     await saveUnits(detailedUnits);
+    console.log("Done building the database.");
 }
 
 const assembleDetailedVoivodeships = async () => {
