@@ -6,3 +6,4 @@ package-lock.json
 .env
 dist
 public
+.nyc_output
