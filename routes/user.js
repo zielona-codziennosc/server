@@ -5,6 +5,7 @@ import authRouter from "./auth";
 import activityRouter from "./activity";
 import {validateParam, validateBody, schema, stripAuthorizationHeader} from '../helpers/joiResources';
 import {authenticate} from "../helpers/utils";
+import photoFormRoute from "../helpers/multipartForm";
 
 const router = expressPromiseRouter();
 
@@ -19,6 +20,7 @@ router.route('/:userId')
     .get(validateParam(schema.id, 'userId'), Controller.get)
     .patch([validateParam(schema.id, 'userId'), validateBody(schema.user.patch)], Controller.update)
     .delete(validateParam(schema.id, 'userId'), Controller.remove);
+
 
 router.use("/:userId", validateParam(schema.id, 'userId'), activityRouter);
 

@@ -36,4 +36,9 @@ const daily = async (req, res) => {
     });
 };
 
-export default {coordinates, daily};
+const addPhoto = async (req, res) => {
+
+    res.status(200).json({success: true});
+};
+
+export default {coordinates, daily, addPhoto};
