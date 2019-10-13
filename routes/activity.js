@@ -1,7 +1,7 @@
 import expressPromiseRouter from 'express-promise-router';
 
 import Controller from '../controllers/activity';
-import {validateBody, schema} from '../helpers/joiResources';
+import {validateBody, schema, validateParam} from '../helpers/joiResources';
 import photoFormRoute from "../helpers/multipartForm";
 
 const router = expressPromiseRouter();
@@ -15,5 +15,8 @@ router.route("/daily")
 
 router.route("/photo")
     .post(photoFormRoute, Controller.addPhoto);
+
+router.route("/photo/:photoId")
+    .delete(validateParam(schema.id, "photoId"), Controller.removePhoto);
 
 export default router;
