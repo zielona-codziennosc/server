@@ -10,7 +10,6 @@
 
 > A server made for -nazwa aplikacji jak juz ja wymyslimy-. 
 
-
 ### ✨ [Demo](https://hackheroesserver.antek.now.sh/)
 
 ## Install
@@ -35,10 +34,3 @@ npm test
 
 👤 **@anteeek**
 
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
