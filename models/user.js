@@ -1,14 +1,27 @@
 import { Schema, model } from 'mongoose';
 
-import { ensureFieldUniquity, accountOfEmail } from "./utils";
+import ensureFieldUniquity from "./utils/ensureFieldUniquity";
+import { accountOfEmail, todaysActivity } from "./utils";
 
 const UserSchema = new Schema({
-    email: { type: String, required: true, unique: true}
-}, {strict: false, minimize: false});
+    email: { type: String, required: true, unique: true},
+
+    gusPowiatUnitId: { type: String, default: "000000000000" },
+    gusVoivodeshipUnitId: { type: String, default: "000000000000" },
+
+    streak: { type: Number, default: 0},
+    totalPlasticSaved: { type: Number, default: 0},
+    totalWaterSaved: { type: Number, default: 0},
+    totalCarbonSaved: { type: Number, default: 0},
+
+    todaysSavings: {water: Number, plastic: Number, carbon: Number}
+});
 
 
 UserSchema.pre(['save', 'findOneAndUpdate', 'findByIdAndUpdate'], ensureFieldUniquity("email"));
 
+UserSchema.methods = {todaysActivity};
+
 UserSchema.static("accountOfEmail", accountOfEmail);
 
-export default model('User', UserSchema)
+export default model('user', UserSchema);

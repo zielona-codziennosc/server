@@ -1,4 +1,4 @@
-import gusRequest from "./gusRequest";
+import gusRequest from "../gusRequest";
 import getRegionFromCoordinates from "./getRegionFromCoordinates";
 
 export default async (coordinates) => {
@@ -9,6 +9,7 @@ export default async (coordinates) => {
     const powiatList =  await getPowiatListFromGus(voivodeship.id, region.County);
 
     return [...powiatList, voivodeship];
+
 };
 
 export const getVoivodeshipFromGus = async (voivodeshipName) => {
