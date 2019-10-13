@@ -1,9 +1,7 @@
 import chai, {expect} from 'chai';
 import chaiHttp  from 'chai-http'
-import server from "../../index";
-import jwt from "jsonwebtoken";
 
-import getMatchingUnitsFromCoordinates from "../../gusDrivers/getMatchingUnitsFromCoordinates";
+import getMatchingUnitsFromCoordinates from "../../gusDrivers/unitFinding/getMatchingUnitsFromCoordinates";
 
 
 let should = chai.should();
