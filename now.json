@@ -8,7 +8,9 @@
     { "src": "/(.*)", "dest": "index.js" }
   ],
   "env": {
-    "MONGO_URL": "@mongo_url",
+    "MONGO_URL_TEST": "@mongo_url_test",
+    "MONGO_URL_PRODUCTION": "@mongo_url_production",
+    "MONGO_URL_DEVELOPMENT": "@mongo_url_development",
     "JWT_SECRET": "@jwt_secret",
     "HERE_APP_ID": "@here_app_id",
     "HERE_APP_SECRET": "@here_app_secret",
