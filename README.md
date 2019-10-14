@@ -1,18 +1,12 @@
-<h1 align="center">Welcome to Hack heroes backend 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: GNU GPL 3.0" src="https://img.shields.io/badge/License-GNU GPL 3.0-yellow.svg" />
-  </a>
-</p>
+# (nazwa) backend 🎉🎉🎉🎉🎉🎉
 
 [![Build Status](https://travis-ci.com/anteeek/hackheroes_temp_server.svg?token=FMjKkwfuVYj8mskr7sDm&branch=master)](https://travis-ci.com/anteeek/hackheroes_temp_server)
 
-> A server made for -nazwa aplikacji jak juz ja wymyslimy-. 
+#### (nazwa)'s server. 
 
-### ✨ [Demo](https://hackheroesserver.antek.now.sh/)
+###  [Demo](https://hackheroesserver.antek.now.sh/)
 
-## Install
+## Installation
 
 ```sh
 npm run deploy
@@ -21,7 +15,7 @@ npm run deploy
 ## Usage
 
 ```sh
-npm run start
+npm start
 ```
 
 ## Run tests
@@ -30,7 +24,6 @@ npm run start
 npm test
 ```
 
-## Author
 
-👤 **@anteeek**
+[**@anteeek**](https://www.github.com/anteeek)
 
