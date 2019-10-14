@@ -34,7 +34,7 @@ const mongo_connect = () => {
             break;
     }
 
-    mongoose.connect(mongoUrl || process.env.MONGO_URL_TEST, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 };
 
 const useMiddleware = app => {
