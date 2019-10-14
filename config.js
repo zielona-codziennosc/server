@@ -7,7 +7,6 @@ import express from "express";
 import {schedule} from "node-cron";
 
 import { dailyVariableCleanup } from "./helpers/utils";
-import updateUnits from "./gusDrivers/databaseBuilding/buildUnitsDatabase";
 
 const setHeaders = res => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,7 +21,18 @@ const mongo_connect = () => {
     mongoose.set('useFindAndModify', false);
     mongoose.set('useUnifiedTopology', true);
 
-    const mongoUrl = process.env.NODE_ENV === "test" ? process.env.MONGO_URL_TEST : process.env.MONGO_URL;
+    let mongoUrl;
+    switch(process.env.NODE_ENV) {
+        case "TEST":
+            mongoUrl = process.env.MONGO_URL_TEST;
+            break;
+        case "PRODUCTION":
+            mongoUrl = process.env.MONGO_URL_PRODUCTION;
+            break;
+        case "DEVELOPMENT":
+            mongoUrl = process.env.MONGO_URL_DEVELOPMENT;
+            break;
+    }
 
     mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 };
