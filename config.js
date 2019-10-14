@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import express from "express";
-import {schedule} from "node-cron";
+import { schedule } from "node-cron";
 
 import { dailyVariableCleanup } from "./helpers/utils";
 
