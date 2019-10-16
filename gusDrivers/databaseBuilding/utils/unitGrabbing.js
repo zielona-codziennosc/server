@@ -1,7 +1,7 @@
 import gusRequest from "../../gusRequest";
 import {sleep, normalizeGusResultArray, injectVoivodeshipIdToPowiaty} from "./index";
 
-export const getAllUnits = async () => {
+export default async () => {
     const allVoivodeships = await getAllVoivodeships();
 
     const allPowiaty = await getAllPowiaty(allVoivodeships);
@@ -9,7 +9,7 @@ export const getAllUnits = async () => {
     return {...allVoivodeships, ...allPowiaty};
 };
 
-export const getAllVoivodeships = async () => {
+const getAllVoivodeships = async () => {
     let allVoivodeships = [];
 
     for(let i=0; i<5; i++) {
@@ -25,7 +25,7 @@ export const getAllVoivodeships = async () => {
     return normalizeGusResultArray(allVoivodeships);
 };
 
-export const getAllPowiaty = async (voivodeships) => {
+const getAllPowiaty = async (voivodeships) => {
     let allPowiaty = {};
 
     for(const voivodeshipGusid in voivodeships) {
@@ -43,7 +43,7 @@ export const getAllPowiaty = async (voivodeships) => {
     return allPowiaty;
 };
 
-export const getPowiatyFromVoivodeship = async (voivodeshipGusId) => {
+const getPowiatyFromVoivodeship = async (voivodeshipGusId) => {
     let allPowiaty = [];
 
     for(let page = 0; page < 2; page++) {

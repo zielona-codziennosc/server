@@ -87,5 +87,5 @@ export const normalizeGusResultArray = resultArray => resultArray.reduce( (resul
     return result;
 }, {});
 
-export * from "./unitGrabbing";
-export * from "./variableGrabbing";
+export {default as getAllUnits} from "./unitGrabbing";
+export {default as getAllVariables} from "./variableGrabbing";

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 import ensureFieldUniquity from "./utils/ensureFieldUniquity";
-import { accountOfEmail, todaysActivity } from "./utils";
+import { accountOfEmail, todaysActivity, updateWithUnits } from "./utils";
 
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true},
@@ -23,5 +23,6 @@ UserSchema.pre(['save', 'findOneAndUpdate', 'findByIdAndUpdate'], ensureFieldUni
 UserSchema.methods = {todaysActivity};
 
 UserSchema.static("accountOfEmail", accountOfEmail);
+UserSchema.static("updateWithUnits", updateWithUnits);
 
 export default model('user', UserSchema);

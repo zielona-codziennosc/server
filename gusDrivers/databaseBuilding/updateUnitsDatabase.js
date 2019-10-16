@@ -2,11 +2,10 @@ import {
     joinVariablesById,
     applyNormalizersToVariables,
     updateUnits,
-    joinVariablesOfDifferentUnits,
-    grabVariablesForUnitOfLevel
+    getAllVariables
 } from "./utils";
 
-import {neededVoivodeshipVariables, neededPowiatVariables, normalizers} from "./config";
+import { normalizers } from "./config";
 
 
 export default async () => {
@@ -19,12 +18,8 @@ export default async () => {
 
 
 const assembleAll = async() => {
-    const [voivodeships, powiaty] = await Promise.all(
-        [grabVariablesForUnitOfLevel("2", neededVoivodeshipVariables),
-            grabVariablesForUnitOfLevel("5", neededPowiatVariables)
-        ]);
-    const mergedVariables = joinVariablesOfDifferentUnits(voivodeships, powiaty);
-    const variablesJoinedOnId = joinVariablesById(mergedVariables);
+    const allVariables = await getAllVariables();
+    const variablesJoinedOnId = joinVariablesById(allVariables);
 
     return applyNormalizersToVariables(normalizers, variablesJoinedOnId);
 };

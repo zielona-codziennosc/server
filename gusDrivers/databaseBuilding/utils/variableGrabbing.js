@@ -2,7 +2,7 @@ import gusRequest from "../../gusRequest";
 import { neededVariables } from "../config";
 import {normalizeGusResultArray, joinVariablesOfDifferentUnits} from "./index"
 
-export const getAllVariables = async () => {
+export default async () => {
 
     const {neededPowiatVariables, neededVoivodeshipVariables} = neededVariables;
 
@@ -13,9 +13,9 @@ export const getAllVariables = async () => {
 
 
     return joinVariablesOfDifferentUnits(voivodeshipVariables, powiatVariables);
-}
+};
 
-export const grabVariablesForUnitOfLevel = async (level, requestedVariables) => {
+const grabVariablesForUnitOfLevel = async (level, requestedVariables) => {
 
     const resultingVariables = {};
 
@@ -27,7 +27,7 @@ export const grabVariablesForUnitOfLevel = async (level, requestedVariables) => 
     return resultingVariables;
 };
 
-export const grabOneVariableForUnitOfLevel = async (level, variableId, year) => {
+const grabOneVariableForUnitOfLevel = async (level, variableId, year) => {
     let variableRecords = [];
 
     for(let i=0; i<5; i++) {
