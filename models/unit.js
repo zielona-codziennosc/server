@@ -4,8 +4,11 @@ import ensureFieldUniquity from "./utils/ensureFieldUniquity";
 
 const UnitSchema = new Schema({
     gusId: { type: String},
+    voivodeshipGusId: { type: String },
     name: {type: String},
     isVoivodeship: {type: Boolean, default: false},
+
+
     averageFriendliness: { type: Number, default: 1 },
     averageStreak: {type: Number, default: 0 },
 
