@@ -1,8 +1,8 @@
-import gusRequest from "../gusRequest";
-import { neededVariables } from "./config";
-import {normalizeGusResultArray, smashVoivodeshipAndPowiatVariables} from "./utils"
+import gusRequest from "../../gusRequest";
+import { neededVariables } from "../config";
+import {normalizeGusResultArray, joinVariablesOfDifferentUnits} from "./index"
 
-export default async () => {
+export const getAllVariables = async () => {
 
     const {neededPowiatVariables, neededVoivodeshipVariables} = neededVariables;
 
@@ -12,7 +12,7 @@ export default async () => {
     ]);
 
 
-    return smashVoivodeshipAndPowiatVariables(voivodeshipVariables, powiatVariables);
+    return joinVariablesOfDifferentUnits(voivodeshipVariables, powiatVariables);
 }
 
 export const grabVariablesForUnitOfLevel = async (level, requestedVariables) => {

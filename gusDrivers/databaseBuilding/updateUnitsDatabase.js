@@ -1,29 +1,30 @@
-import {smashVariables, applyNormalizersToVariables, updateUnits} from "./utils";
-import {grabVariablesForUnitOfLevel} from "./unitGrabbing";
-import {neededVoivodeshipVariables, neededPowiatVariables, voivodeshipNormalizers, powiatNormalizers} from "./config";
+import {
+    joinVariablesById,
+    applyNormalizersToVariables,
+    updateUnits,
+    joinVariablesOfDifferentUnits,
+    grabVariablesForUnitOfLevel
+} from "./utils";
+
+import {neededVoivodeshipVariables, neededPowiatVariables, normalizers} from "./config";
 
 
 export default async () => {
-    const assemblePromises = [assemblePowiatUpdate(), assembleVoivodeshipVariables()];
+    const assembledUpdates = await assembleAll();
 
-    const [powiatUpdates, voivodeshipUpdates] = await Promise.all(assemblePromises);
+    await updateUnits(assembledUpdates);
 
-    await updateUnits({...powiatUpdates, ...voivodeshipUpdates});
-    console.log("Done updating the database.");
+    console.log("Successfuly updated units.");
 };
 
-const assemblePowiatUpdate = async () => {
-    let powiatVariables = await grabVariablesForUnitOfLevel("5", neededPowiatVariables);
 
-    powiatVariables = smashVariables(powiatVariables);
+const assembleAll = async() => {
+    const [voivodeships, powiaty] = await Promise.all(
+        [grabVariablesForUnitOfLevel("2", neededVoivodeshipVariables),
+            grabVariablesForUnitOfLevel("5", neededPowiatVariables)
+        ]);
+    const mergedVariables = joinVariablesOfDifferentUnits(voivodeships, powiaty);
+    const variablesJoinedOnId = joinVariablesById(mergedVariables);
 
-    return applyNormalizersToVariables(powiatNormalizers, powiatVariables);
-};
-
-const assembleVoivodeshipVariables = async () => {
-    let voivodeshipVariables = await grabVariablesForUnitOfLevel("2", neededVoivodeshipVariables);
-
-    voivodeshipVariables = smashVariables(voivodeshipVariables);
-
-    return applyNormalizersToVariables(voivodeshipNormalizers, voivodeshipVariables);
+    return applyNormalizersToVariables(normalizers, variablesJoinedOnId);
 };

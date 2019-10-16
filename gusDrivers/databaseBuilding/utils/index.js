@@ -1,4 +1,4 @@
-import Unit from "../../models/unit";
+import Unit from "../../../models/unit";
 
 
 export const mergeVariablesWithUnits = (variables, units) => {
@@ -17,7 +17,7 @@ export const mergeVariablesWithUnits = (variables, units) => {
     return units;
 };
 
-export const smashVariables = variables => {
+export const joinVariablesById = variables => {
 
     const smashed = {};
 
@@ -34,10 +34,10 @@ export const smashVariables = variables => {
     return smashed;
 };
 
-export const smashVoivodeshipAndPowiatVariables = (voivodeshipVariables, powiatVariables) => {
+export const joinVariablesOfDifferentUnits = (firstUnitVariables, secondUnitVariables) => {
     const smashed = {};
-    for(const variableName in voivodeshipVariables) {
-            smashed[variableName] = {...voivodeshipVariables[variableName], ...powiatVariables[variableName]}
+    for(const variableName in firstUnitVariables) {
+            smashed[variableName] = {...firstUnitVariables[variableName], ...secondUnitVariables[variableName]}
     }
     return smashed;
 };
@@ -86,3 +86,6 @@ export const normalizeGusResultArray = resultArray => resultArray.reduce( (resul
     }
     return result;
 }, {});
+
+export * from "./unitGrabbing";
+export * from "./variableGrabbing";

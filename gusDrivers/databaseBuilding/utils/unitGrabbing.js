@@ -1,7 +1,7 @@
-import gusRequest from "../gusRequest";
-import {sleep, normalizeGusResultArray, injectVoivodeshipIdToPowiaty} from "./utils";
+import gusRequest from "../../gusRequest";
+import {sleep, normalizeGusResultArray, injectVoivodeshipIdToPowiaty} from "./index";
 
-export default async () => {
+export const getAllUnits = async () => {
     const allVoivodeships = await getAllVoivodeships();
 
     const allPowiaty = await getAllPowiaty(allVoivodeships);
