@@ -1,21 +1,19 @@
 import gusRequest from "../gusRequest";
+import { neededVariables } from "./config";
+import {normalizeGusResultArray, smashVoivodeshipAndPowiatVariables} from "./utils"
 
-export const getAllUnitsOfLevel = async (level) => {
+export default async () => {
 
-    let allUnits = [];
+    const {neededPowiatVariables, neededVoivodeshipVariables} = neededVariables;
 
-    for(let i=0; i<5; i++) {
-        const unitsSheet = await gusRequest(`/units`, {level, page: i, "page-size": "100"});
-
-        allUnits = [...allUnits, ...unitsSheet.results];
-
-        if(!unitsSheet?.links?.next)
-            break;
-    }
+    const [powiatVariables, voivodeshipVariables] = await Promise.all([
+        grabVariablesForUnitOfLevel("5", neededPowiatVariables),
+        grabVariablesForUnitOfLevel("2", neededVoivodeshipVariables)
+    ]);
 
 
-    return normalizeGusResultArray(allUnits);
-};
+    return smashVoivodeshipAndPowiatVariables(voivodeshipVariables, powiatVariables);
+}
 
 export const grabVariablesForUnitOfLevel = async (level, requestedVariables) => {
 
@@ -45,12 +43,3 @@ export const grabOneVariableForUnitOfLevel = async (level, variableId, year) => 
 
     return normalizeGusResultArray(variableRecords);
 };
-
-const normalizeGusResultArray = resultArray => resultArray.reduce( (result, item) =>{
-    result[item.id] = item;
-    if(item.values) {
-        result[item.id].value = item.values[0].val;
-        delete result[item.id].values;
-    }
-    return result;
-}, {});

@@ -36,7 +36,7 @@ const sharedNormalizers = [
 
 export const powiatNormalizers = [
     ...sharedNormalizers
-];
+].map( (normalizer) => entity => !entity.isVoivodeship && normalizer(entity));
 
 export const voivodeshipNormalizers = [
     ...sharedNormalizers,
@@ -53,5 +53,9 @@ export const voivodeshipNormalizers = [
         entity.dailycarbonFootprintWithPublicTransport = Math.round(totalCommuters * 0.069);
         entity.dailycarbonFootprintWithAllCars = Math.round(totalCommuters * 0.133);
     }
-];
+].map( normalizer => entity => entity.isVoivodeship && normalizer(entity));
 
+
+export const neededVariables = {neededVoivodeshipVariables, neededPowiatVariables};
+
+export const normalizers = [...powiatNormalizers, ...voivodeshipNormalizers];

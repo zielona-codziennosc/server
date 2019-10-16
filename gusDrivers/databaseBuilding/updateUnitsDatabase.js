@@ -1,5 +1,5 @@
 import {smashVariables, applyNormalizersToVariables, updateUnits} from "./utils";
-import {grabVariablesForUnitOfLevel} from "./apiCallingUtils";
+import {grabVariablesForUnitOfLevel} from "./unitGrabbing";
 import {neededVoivodeshipVariables, neededPowiatVariables, voivodeshipNormalizers, powiatNormalizers} from "./config";
 
 

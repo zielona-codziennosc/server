@@ -7,6 +7,7 @@ export const mergeVariablesWithUnits = (variables, units) => {
         const currentUnit = units[unitId];
 
         for(const variableName in variables) {
+
             const currentVariable = variables[variableName];
 
             currentUnit[variableName] = currentVariable?.[unitId]?.value;
@@ -30,6 +31,14 @@ export const smashVariables = variables => {
         }
     }
 
+    return smashed;
+};
+
+export const smashVoivodeshipAndPowiatVariables = (voivodeshipVariables, powiatVariables) => {
+    const smashed = {};
+    for(const variableName in voivodeshipVariables) {
+            smashed[variableName] = {...voivodeshipVariables[variableName], ...powiatVariables[variableName]}
+    }
     return smashed;
 };
 
@@ -63,4 +72,17 @@ export const applyNormalizersToVariables = (normalizers, variables) => {
     return variables;
 };
 
+export const injectVoivodeshipIdToPowiaty = (voivodeshipId, powiaty) => Object.values(powiaty).forEach(powiat => powiat.voivodeshipGusId = voivodeshipId);
 
+export const sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+export const normalizeGusResultArray = resultArray => resultArray.reduce( (result, item) =>{
+    result[item.id] = item;
+    if(item.values) {
+        result[item.id].value = item.values[0].val;
+        delete result[item.id].values;
+    }
+    return result;
+}, {});
