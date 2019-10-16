@@ -27,7 +27,7 @@ npm test
 ***
 ## Documentation 
 
-###Routes
+### Routes
 
   **User related**
   
@@ -64,3 +64,9 @@ npm test
         `photo` attribute is needed. This endpoint is  `multipart` only.
         Adds a photo to user's profile. 
      
+     
+***
+
+# To do:
+ * Add manual updating option for gus units
+ * Add searching units with text (possibly on the front-end)
