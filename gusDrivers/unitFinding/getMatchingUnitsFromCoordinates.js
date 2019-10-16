@@ -1,23 +1,28 @@
 import gusRequest from "../gusRequest";
+import Unit from "../../models/unit";
 import getRegionFromCoordinates from "./getRegionFromCoordinates";
 
 export default async (coordinates) => {
 
     const region = await getRegionFromCoordinates(coordinates);
 
-    const voivodeship = await getVoivodeshipFromGus(region.State);
-    const powiatList =  await getPowiatListFromGus(voivodeship.id, region.County);
+    const voivodeship = await getMatchingVoivodeship(region.State);
+    const powiatList =  await getMatchingPowiatsFromVoivodeship(voivodeship.gusId, region.County);
 
     return [...powiatList, voivodeship];
-
 };
 
-export const getVoivodeshipFromGus = async (voivodeshipName) => {
-    const gusResponse =  await gusRequest("/units/search", {level: "2", name: voivodeshipName});
-    return gusResponse?.results?.find?.( voivodeship => voivodeship.name === voivodeshipName.toUpperCase());
+export const getMatchingVoivodeship = async voivodeshipName => {
+    const voivodeshipRegex = new RegExp(voivodeshipName);
+
+    return await Unit.findOne({name: { $regex: voivodeshipRegex, $options: 'ig' }});
 };
 
-export const getPowiatListFromGus = async (voivodeshipId, powiatName) => {
-    const gusResponse = await gusRequest(`/units/search`, {level: "5", "parent-id": voivodeshipId, name: powiatName});
-    return gusResponse?.results;
+export const getMatchingPowiatsFromVoivodeship = async (voivodeshipGusId, powiatName) => {
+    const powiatRegex = new RegExp(powiatName);
+
+    return await Unit.find({
+        name: { $regex: powiatRegex, $options: 'ig'},
+        voivodeshipGusId
+    });
 };

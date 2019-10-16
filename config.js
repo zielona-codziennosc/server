@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import express from "express";
 import { schedule } from "node-cron";
 
+import buildDB from "./gusDrivers/databaseBuilding/buildUnitsDatabase";
+
 import { dailyVariableCleanup } from "./helpers/utils";
 
 const setHeaders = res => {
