@@ -1,5 +1,5 @@
 import gusRequest from "../../gusRequest";
-import {sleep, normalizeGusResultArray, injectVoivodeshipIdToPowiaty} from "./index";
+import {sleep, normalizeGusResultArray, injectVoivodeshipIdToPowiaty, stampVoivodeshipsFlag} from "./index";
 
 export default async () => {
     const allVoivodeships = await getAllVoivodeships();
@@ -21,6 +21,7 @@ const getAllVoivodeships = async () => {
             break;
     }
 
+    stampVoivodeshipsFlag(allVoivodeships);
 
     return normalizeGusResultArray(allVoivodeships);
 };

@@ -74,6 +74,8 @@ export const applyNormalizersToVariables = (normalizers, variables) => {
 
 export const injectVoivodeshipIdToPowiaty = (voivodeshipId, powiaty) => Object.values(powiaty).forEach(powiat => powiat.voivodeshipGusId = voivodeshipId);
 
+export const stampVoivodeshipsFlag = voivodeships => voivodeships.forEach( voivodeship => voivodeship.isVoivodeship = true);
+
 export const sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
