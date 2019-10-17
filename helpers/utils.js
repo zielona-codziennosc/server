@@ -26,7 +26,8 @@ export const removePhotoOfId = photoId => {
             return;
 
         fs.unlink(files[0], err => {
-            console.log(err);
+            if(err)
+                console.log(err);
         })
     })
 };

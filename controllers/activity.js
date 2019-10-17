@@ -37,7 +37,7 @@ const daily = async (req, res) => {
     });
 };
 
-const addPhoto = async (req, res) => res.status(200).json({success: true});
+const addPhoto = async (req, res) => res.status(200).json({success: true, id: req.file.filename.split(".")[0]});
 
 const removePhoto = async (req, res) => {
     const {params: {userId, photoId}} = req.value;
