@@ -8,6 +8,7 @@ export default async function({waterConsumption, commute, plasticWeight}) {
             Unit.findOne({gusId: this.gusVoivodeshipUnitId})
         ]
     );
+
     const unitWideWaterConsumption = powiat?.averageDailyWaterConsumption || voivodeship?.averageDailyWaterConsumption;
     const unitWidePlasticProduction = powiat?.averageDailyPlasticProduction || voivodeship?.averageDailyPlasticProduction;
 

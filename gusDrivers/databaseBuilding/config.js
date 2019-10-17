@@ -6,7 +6,6 @@ const sharedVariables = {
 };
 
 export const neededPowiatVariables = {
-    "population": {variableId: 453949, year: 2011},
     ...sharedVariables
 };
 

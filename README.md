@@ -71,5 +71,6 @@ npm test
 ***
 
 # To do:
- * Add manual updating option for gus units
  * Add searching units with text (possibly on the front-end)
+ * Add Authorization system (not to confuse with authentication)
+ * Add cron jobs tests
