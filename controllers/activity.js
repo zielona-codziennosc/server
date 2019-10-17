@@ -12,7 +12,7 @@ const coordinates = async (req, res) => {
         if(set)
             await User.updateWithUnits(userId, matchingUnits);
 
-        res.status(200).json({success: true, powiaty: matchingUnits.powiaty});
+        res.status(200).json({success: true, ...matchingUnits});
     }
     catch (error) {
         res.status(400).json({success: false, matchingUnits: [], error});
