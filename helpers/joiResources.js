@@ -63,6 +63,12 @@ export const schema = {
             plasticWeight: Joi.number().min(0).required()
         })
     },
+    user: {
+        update: Joi.object().keys({
+            gusPowiatUnitId: Joi.string().regex(/^\d{12}$/).optional(),
+            gusVoivodeshipUnitId: Joi.string().regex(/^\d{12}$/).optional()
+        })
+    },
     id: Joi.object().keys({
         param: Joi.string().regex(/^[0-9a-fA-Z]{24}$/).required()
     }),

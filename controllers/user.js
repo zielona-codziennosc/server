@@ -12,7 +12,7 @@ const update = async (req, res) => {
     await User.findByIdAndUpdate(userId, req.value.body);
 
     res.status(201).json({ success: true });
-}
+};
 
 const remove = async (req, res) => {
     const { userId } = req.value.params;
