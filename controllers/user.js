@@ -6,6 +6,13 @@ const get = async (req, res) => {
     res.status(200).json(user);
 };
 
+const update = async (req, res) => {
+    const { userId } = req.value.params;
+
+    await User.findByIdAndUpdate(userId, req.value.body);
+
+    res.status(201).json({ success: true });
+}
 
 const remove = async (req, res) => {
     const { userId } = req.value.params;
@@ -14,4 +21,4 @@ const remove = async (req, res) => {
 };
 
 
-export default { get, remove }
+export default { get, remove, update }
