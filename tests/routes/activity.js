@@ -11,11 +11,10 @@ chai.use(chaiHttp);
 
 
 describe('Activity routes', function() {
-    let authenticationToken;
     this.timeout(10000);
 
     const email = "admininternetu@example.com";
-    let mockedUser, authentiactionToken;
+    let mockedUser, authenticationToken;
 
     beforeEach(async () => {
         await User.deleteMany({});
