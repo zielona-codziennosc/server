@@ -1,4 +1,4 @@
-import Unit from "../../models/unit";
+import Unit from "../../../models/unit";
 
 
 export const mergeVariablesWithUnits = (variables, units) => {
@@ -7,6 +7,7 @@ export const mergeVariablesWithUnits = (variables, units) => {
         const currentUnit = units[unitId];
 
         for(const variableName in variables) {
+
             const currentVariable = variables[variableName];
 
             currentUnit[variableName] = currentVariable?.[unitId]?.value;
@@ -16,7 +17,7 @@ export const mergeVariablesWithUnits = (variables, units) => {
     return units;
 };
 
-export const smashVariables = variables => {
+export const joinVariablesById = variables => {
 
     const smashed = {};
 
@@ -30,6 +31,14 @@ export const smashVariables = variables => {
         }
     }
 
+    return smashed;
+};
+
+export const joinVariablesOfDifferentUnits = (firstUnitVariables, secondUnitVariables) => {
+    const smashed = {};
+    for(const variableName in firstUnitVariables) {
+            smashed[variableName] = {...firstUnitVariables[variableName], ...secondUnitVariables[variableName]}
+    }
     return smashed;
 };
 
@@ -63,4 +72,22 @@ export const applyNormalizersToVariables = (normalizers, variables) => {
     return variables;
 };
 
+export const injectVoivodeshipIdToPowiaty = (voivodeshipId, powiaty) => Object.values(powiaty).forEach(powiat => powiat.voivodeshipGusId = voivodeshipId);
 
+export const stampVoivodeshipsFlag = voivodeships => voivodeships.forEach( voivodeship => voivodeship.isVoivodeship = true);
+
+export const sleep = (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+export const normalizeGusResultArray = resultArray => resultArray.reduce( (result, item) =>{
+    result[item.id] = item;
+    if(item.values) {
+        result[item.id].value = item.values[0].val;
+        delete result[item.id].values;
+    }
+    return result;
+}, {});
+
+export {default as getAllUnits} from "./unitGrabbing";
+export {default as getAllVariables} from "./variableGrabbing";

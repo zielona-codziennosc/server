@@ -1,6 +1,9 @@
 # (nazwa) backend 🎉🎉🎉🎉🎉🎉
 
-[![Build Status](https://travis-ci.com/anteeek/hackheroes_temp_server.svg?token=FMjKkwfuVYj8mskr7sDm&branch=master)](https://travis-ci.com/anteeek/hackheroes_temp_server)
+[![Build Status](https://travis-ci.com/anteeek/hackheroes_temp_server.svg?token=FMjKkwfuVYj8mskr7sDm&branch=master)](https://travis-ci.com/anteeek/hackheroes_temp_server) master
+
+[![Build Status](https://travis-ci.com/anteeek/hackheroes_temp_server.svg?token=FMjKkwfuVYj8mskr7sDm&branch=development)](https://travis-ci.com/anteeek/hackheroes_temp_server) development
+
 
 #### (nazwa)'s server. 
 
@@ -27,7 +30,7 @@ npm test
 ***
 ## Documentation 
 
-###Routes
+### Routes
 
   **User related**
   
@@ -64,3 +67,9 @@ npm test
         `photo` attribute is needed. This endpoint is  `multipart` only.
         Adds a photo to user's profile. 
      
+     
+***
+
+# To do:
+ * Add manual updating option for gus units
+ * Add searching units with text (possibly on the front-end)

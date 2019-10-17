@@ -8,12 +8,11 @@ const coordinates = async (req, res) => {
 
     try {
         const matchingUnits = await getMatchingUnitsFromCoordinates(coordinates);
-        const matchingVoivodeship = matchingUnits.find( unit => unit.level === 2);
 
         if(set)
-            await User.findByIdAndUpdate(userId, {gusVoivodeshipUnitId: matchingVoivodeship.id});
+            await User.updateWithUnits(userId, matchingUnits);
 
-        res.status(200).json({success: true, matchingUnits});
+        res.status(200).json({success: true, powiaty: matchingUnits.powiaty});
     }
     catch (error) {
         res.status(400).json({success: false, matchingUnits: [], error});

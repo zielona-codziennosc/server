@@ -29,4 +29,4 @@ export const removePhotoOfId = photoId => {
             console.log(err);
         })
     })
-}
+};
