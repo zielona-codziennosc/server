@@ -74,3 +74,4 @@ npm test
  * Add searching units with text (possibly on the front-end)
  * Add Authorization system (not to confuse with authentication)
  * Add cron jobs tests
+ * Add face detection for photos

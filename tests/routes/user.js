@@ -93,7 +93,7 @@ describe('User routes', function() {
                     res.body.should.be.a('object');
                     expect(res.body.success);
 
-                    const mockedUserAfterUpdate = await User.findById(mockedUser._id)
+                    const mockedUserAfterUpdate = await User.findById(mockedUser._id);
 
                     expect(mockedUserAfterUpdate.gusPowiatUnitId).to.equal(sampleUpdates.gusPowiatUnitId);
                     expect(mockedUserAfterUpdate.gusVoivodeshipUnitId).to.equal(sampleUpdates.gusVoivodeshipUnitId);
