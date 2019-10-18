@@ -104,35 +104,4 @@ describe('User routes', function() {
 
     });
 
-    describe('PATCH /user/:userId', () => {
-
-
-        it('Should update the user and return success', (done) => {
-
-            const sampleUpdates = {
-                gusPowiatUnitId: "012415108000",
-                gusVoivodeshipUnitId: "042800000000"
-            };
-
-            chai.request(server)
-                .patch(`/user/${mockedUser._id}`)
-                .set("Authorization", `Bearer ${authenticationToken}`)
-                .send(sampleUpdates)
-                .end(async (err, res) => {
-
-                    res.should.have.status(201);
-                    res.body.should.be.a('object');
-                    expect(res.body.success);
-
-                    const mockedUserAfterUpdate = await User.findById(mockedUser._id)
-
-                    expect(mockedUserAfterUpdate.gusPowiatUnitId).to.equal(sampleUpdates.gusPowiatUnitId);
-                    expect(mockedUserAfterUpdate.gusVoivodeshipUnitId).to.equal(sampleUpdates.gusVoivodeshipUnitId);
-
-                    done();
-                });
-        });
-
-    });
-
 });
