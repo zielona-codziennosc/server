@@ -93,6 +93,8 @@ describe('Activity routes', function() {
                 const photoRecord = await Photo.findById(res.body.id);
 
                 expect(photoRecord).to.not.exist;
+
+                done();
             });
 
     });
