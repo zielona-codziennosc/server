@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user";
+import cache from "flat-cache";
 import {OAuth2Client} from "google-auth-library";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -26,5 +27,24 @@ const login = async (req, res) => {
 
 };
 
+const logout = (req, res) => {
 
-export default {login};
+    const {token} = req.value;
+
+    try {
+        const { exp } = jwt.decode(token);
+
+        const flatfile = cache.load("jwt_blacklist");
+
+        flatfile.setKey(token, exp);
+        flatfile.save();
+
+        res.status(200).json({success: true});
+    }
+    catch {
+        res.status(400).json({success: false});
+    }
+};
+
+
+export default {login,logout};

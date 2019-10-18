@@ -1,12 +1,18 @@
 import jwt from "jsonwebtoken";
+import cache from "flat-cache"
 import glob from "glob";
 import fs from "fs";
 import User from "../models/user";
 
 export const authenticate = (req, res, next) => {
-    const { token } = req.value;
-
     try {
+        const { token } = req.value;
+
+        const flatfile = cache.load("jwt_blacklist");
+
+        if(flatfile.getKey(token))
+            throw "Token has been blacklisted";
+
         req.user = jwt.verify(token, process.env.JWT_SECRET);
         next();
     }
