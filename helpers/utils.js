@@ -22,6 +22,16 @@ export const authenticate = (req, res, next) => {
 
 };
 
+export const authorize = (req, res, next) => {
+    const {value: {params: {userId}}} = req;
+    const {id} = req.user;
+
+    if(userId !== id)
+        return res.status(401).json({success: false, message: "Not authorized."});
+    else
+        next();
+};
+
 export const dailyVariableCleanup = async () => {
     await User.updateMany({}, {$unset: {todaysSavings: ""}});
 };
