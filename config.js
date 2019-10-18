@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import express from "express";
 import { schedule } from "node-cron";
 
-import { dailyVariableCleanup } from "./helpers/utils";
+import {cleanBlacklistCache, dailyVariableCleanup} from "./helpers/utils";
 
 
 const setHeaders = res => {
@@ -51,6 +51,7 @@ const useMiddleware = app => {
 
 const kickstartScheduler = () => {
     const dailyVariableCleanupJob = schedule("0 1 * * *", dailyVariableCleanup);
+    const cleanBlacklistCacheJob = schedule("0 * * * *", cleanBlacklistCache);
 };
 
 export default { setHeaders, mongo_connect, useMiddleware, kickstartScheduler }
