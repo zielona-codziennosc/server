@@ -2,6 +2,7 @@ import cache from "flat-cache"
 import glob from "glob";
 import fs from "fs";
 import User from "../models/user";
+import Photo from "../models/photo";
 
 export const dailyVariableCleanup = async () => {
     await User.updateMany({}, {$unset: {todaysSavings: ""}});
@@ -21,14 +22,27 @@ export const cleanBlacklistCache = () => {
     flatfile.save();
 };
 
-export const removePhotoOfId = photoId => {
-    glob(`public/areaPhotos/${photoId}.*`, (err, files) => {
-        if(err)
-            return;
+export const annihilatePhotoOfIds = async ({photoId, userId}) => {
+    await Photo.findOneAndRemove({_id: photoId, userId});
 
-        fs.unlink(files[0], err => {
+    removePhotoOfId(photoId);
+};
+
+const removePhotoOfId = photoId => {
+
+    try {
+        glob(`public/areaPhotos/${photoId}.*`, (err, files) => {
             if(err)
-                console.log(err);
+                return;
+
+            fs.unlink(files[0], err => {
+                if(err)
+                    console.log(err);
+            })
         })
-    })
+    }
+    catch(e) {
+        console.log(e);
+    }
+
 };

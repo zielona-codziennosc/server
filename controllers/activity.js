@@ -1,6 +1,6 @@
 import User from "../models/user";
 import Photo from "../models/photo";
-import { removePhotoOfId } from "../helpers/utils";
+import {annihilatePhotoOfIds, removePhotoOfId} from "../helpers/utils";
 import getMatchingUnitsFromCoordinates from "../gusDrivers/unitFinding/getMatchingUnitsFromCoordinates";
 
 const coordinates = async (req, res) => {
@@ -42,12 +42,7 @@ const addPhoto = async (req, res) => res.status(200).json({success: true, id: re
 const removePhoto = async (req, res) => {
     const {params: {userId, photoId}} = req.value;
 
-    const seekedPhoto = await Photo.findOneAndRemove({_id: photoId, userId});
-
-    if(!seekedPhoto)
-        return res.status(404).json({success: false, message: "no such photo exists or it belongs to user different from that of specified id"});
-
-    removePhotoOfId(photoId);
+    await annihilatePhotoOfIds({userId, photoId});
 
     res.status(200).json({success: true});
 };

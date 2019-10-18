@@ -15,7 +15,7 @@ router.route("/daily")
     .post(validateBody(schema.activity.daily), Controller.daily);
 
 router.route("/photo")
-    .post(photoFormRoute, validateImageContent,Controller.addPhoto);
+    .post(photoFormRoute, validateImageContent, Controller.addPhoto);
 
 router.route("/photo/:photoId")
     .delete(validateParam(schema.id, "photoId"), Controller.removePhoto);
