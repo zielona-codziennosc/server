@@ -17,17 +17,17 @@ export const validateParam = (schema, name) => {
 
 export const stripAuthorizationHeader = (req, res, next) => {
 
-        const result = Joi.validate({ header: req.header("Authorization") }, schema.jwt);
+    const result = Joi.validate({ header: req.header("Authorization") }, schema.jwt);
 
-        if(result.error) {
-            return res.status(400).json(result.error);
-        }else{
-            if(!req.value)
-                req.value = {};
+    if(result.error) {
+        return res.status(400).json(result.error);
+    }else{
+        if(!req.value)
+            req.value = {};
 
-            req.value.token = result.value?.header?.split(" ")[1];
-            next();
-        }
+        req.value.token = result.value?.header?.split(" ")[1];
+        next();
+    }
 };
 
 

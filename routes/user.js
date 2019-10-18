@@ -5,7 +5,7 @@ import authRouter from "./auth";
 
 import activityRouter from "./activity";
 import {validateParam, schema, stripAuthorizationHeader, validateBody} from '../helpers/joiResources';
-import {authenticate, authorize} from "../helpers/utils";
+import {authenticate, authorize} from "../middlewares/auth";
 
 const router = expressPromiseRouter();
 

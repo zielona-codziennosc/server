@@ -13,8 +13,8 @@ const detectionOptions = new faceapi.SsdMobilenetv1Options({minConfidence: 0.5})
 const faceDetectionNet = faceapi.nets.ssdMobilenetv1;
 
 
-export const detectFaces = async () => {
-    const image = await canvas.loadImage("tests/routes/E.jpg");
+export const detectFaces = async photoPath => {
+    const image = await canvas.loadImage(photoPath);
 
     await faceDetectionNet.loadFromDisk('helpers/___weights');
 
