@@ -6,7 +6,7 @@ import { User, Photo } from "../../models/";
 import server from "../../index";
 import jwt from "jsonwebtoken";
 import photo from "../../models/photo";
-import {removePhotoOfId} from "../../helpers/utils";
+import {annihilatePhotoOfIds} from "../../helpers/utils";
 
 let should = chai.should();
 chai.use(chaiHttp);
@@ -34,9 +34,9 @@ describe('Activity routes', function() {
         authenticationToken = jwt.sign({email, id: mockedUser._id}, process.env.JWT_SECRET, {expiresIn: 60*10});
     });
 
-    afterEach( function(done) {
+    afterEach( async function(done) {
         if(photoStatus.remains)
-            removePhotoOfId(photoStatus.id);
+            annihilatePhotoOfIds({photoId: photoStatus.id, userId: mockedUser._id});
 
         photoStatus.remains = false;
         done();
@@ -44,7 +44,7 @@ describe('Activity routes', function() {
 
 
 
-    it("POST /user/:userId/photo | Should accept the photo and make a mongoDB instance of it", (done) => {
+    it("POST /user/:userId/photo with a no-face-containing image | Should accept the photo and make a mongoDB instance of it", (done) => {
 
         chai.request(server)
             .post(`/user/${mockedUser._id}/photo`)
@@ -76,6 +76,25 @@ describe('Activity routes', function() {
                     done();
                 })
             });
+    });
+
+    it("POST /user/:userId/photo with a face-containing image | Should not accept the photo and inform us that it contains faces", (done) => {
+
+        chai.request(server)
+            .post(`/user/${mockedUser._id}/photo`)
+            .set("Authorization", `Bearer ${authenticationToken}`)
+            .attach("photo", "./tests/routes/old_lad.jpg", "old_lad.jpg")
+            .end(async (err, res) => {
+
+                res.should.have.status(401);
+                expect(res.body.success === false);
+                expect(res.body.error).to.equal("Photo contains prohibited content: faces");
+
+                const photoRecord = await Photo.findById(res.body.id);
+
+                expect(photoRecord).to.not.exist;
+            });
+
     });
 
     it("DELETE /user/:userId/photo/:photoId | Should delete the photo", (done) => {
