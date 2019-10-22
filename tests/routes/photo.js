@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 
 describe('Activity routes', function() {
-    this.timeout(10000);
+    this.timeout(30000);
 
     const photoStatus = {
         remains: false,
