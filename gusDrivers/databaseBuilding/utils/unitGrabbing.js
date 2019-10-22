@@ -15,8 +15,6 @@ const getAllVoivodeships = async () => {
     for(let i=0; i<5; i++) {
         const voivodeshipSheet = await gusRequest(`/units`, {level: "2", page: i, "page-size": "100"});
 
-        await sleep(125);
-
         allVoivodeships = [...allVoivodeships, ...voivodeshipSheet.results];
 
         if(!voivodeshipSheet?.links?.next)
@@ -35,7 +33,6 @@ const getAllPowiaty = async (voivodeships) => {
         const currentPowiaty = await getPowiatyFromVoivodeship(voivodeshipGusid);
 
         injectVoivodeshipIdToPowiaty(voivodeshipGusid, currentPowiaty);
-
 
         await sleep(125);
 
