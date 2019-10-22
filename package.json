@@ -29,7 +29,7 @@
     "start": "npm run assemble && node dist/index.js",
     "test": "set NODE_ENV=TEST&& npx mocha \"./tests/**/*.js\"",
     "dev": "set NODE_ENV=DEVELOPMENT&& nodemon --exec babel-node index.js",
-    "rollo": "babel ./ --out-dir dist/ --ignore ./.git/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "rollo": "npx babel ./ --out-dir dist/ --ignore ./.git/,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "applyBabelPolyfillToBuild": "echo require('babel-polyfill'); | cat - dist/index.js > temp && mv temp dist/index.js",
     "assemble": "rimraf dist && mkdir dist && npm run rollo && cp .env ./dist/ && rimraf ./dist/.git && npm run applyBabelPolyfillToBuild",
     "deploy": "npm run assemble && cd dist && now deploy"
