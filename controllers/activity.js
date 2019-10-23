@@ -27,14 +27,7 @@ const daily = async (req, res) => {
 
     const result = await user.todaysActivity(body);
 
-    res.status(200).json({success: true,
-        data: {
-            totalPlasticSaved: user.totalPlasticSaved,
-            totalWaterSaved: user.totalWaterSaved,
-            totalCarbonSaved: user.totalCarbonSaved,
-            ...result
-        }
-    });
+    res.status(200).json({success: true, data: {...result}});
 };
 
 const addPhoto = async (req, res) => res.status(200).json({success: true, id: req.file.filename.split(".")[0]});

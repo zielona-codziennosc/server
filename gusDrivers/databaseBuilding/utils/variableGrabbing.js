@@ -1,6 +1,6 @@
 import gusRequest from "../../gusRequest";
 import { neededVariables } from "../config";
-import {normalizeGusResultArray, joinVariablesOfDifferentUnits} from "./index"
+import {normalizeGusResultArray, joinVariablesOfDifferentUnits, sleep} from "./index"
 
 export default async () => {
 
@@ -33,7 +33,6 @@ const grabOneVariableForUnitOfLevel = async (level, variableId, year) => {
     for(let i=0; i<5; i++) {
         const variableSheet = await gusRequest(`/data/by-variable/${variableId}`,
             {"unit-level": level, page: i, "page-size": "100", year});
-
 
         variableRecords = [...variableRecords, ...variableSheet.results];
 

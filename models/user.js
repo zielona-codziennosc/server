@@ -10,9 +10,20 @@ const UserSchema = new Schema({
     gusVoivodeshipUnitId: { type: String, default: "000000000000" },
 
     streak: { type: Number, default: 0},
-    totalPlasticSaved: { type: Number, default: 0},
-    totalWaterSaved: { type: Number, default: 0},
-    totalCarbonSaved: { type: Number, default: 0},
+
+    activitySubmissionsCount: {type: Number, default: 0},
+
+    totalSavings: {
+      plastic: {type: Number, default: 0},
+      water: {type: Number, default: 0},
+      carbon: {type: Number, default: 0}
+    },
+
+    lifestyleBetterThan: {
+      neighbours: {type: Number, default: 50},
+      poles: {type: Number, default: 50},
+      europeans: {type: Number, default: 50}
+    },
 
     todaysSavings: {water: Number, plastic: Number, carbon: Number}
 });

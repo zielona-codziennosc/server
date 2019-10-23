@@ -8,7 +8,6 @@ import { schedule } from "node-cron";
 
 import {cleanBlacklistCache, dailyVariableCleanup} from "./helpers/utils";
 
-
 const setHeaders = res => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');

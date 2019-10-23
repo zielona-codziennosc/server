@@ -67,7 +67,7 @@ describe('Activity routes', function() {
 
             const dailyActivity = {
                 waterConsumption: 120,
-                plasticWeight: 2,
+                plasticWeight: 0.2,
                 commute: "eco"
             };
 
@@ -83,14 +83,16 @@ describe('Activity routes', function() {
 
                     res.body.data.should.be.an("object");
 
-                    expect(res.body.data).to.have.property("totalPlasticSaved");
-                    expect(res.body.data).to.have.property("totalWaterSaved");
-                    expect(res.body.data).to.have.property("totalCarbonSaved");
+                    expect(res.body.data).to.have.property("relativeScores");
+                    expect(res.body.data.relativeScores).to.have.all.keys(
+                            "waterConsumptionBetterBy",
+                            "plasticProductionBetterBy",
+                            "commuteWouldCutCarbonEmmissionsBy",
+                            "commuteWouldCutCarbonEmmissionsByAbsolute"
+                    );
 
-                    expect(res.body.data).to.have.property("usersWaterFactor");
-                    expect(res.body.data).to.have.property("usersPlasticFactor");
-                    expect(res.body.data).to.have.property("carbonSavings");
-
+                    expect(res.body.data).to.have.property("totalSavings");
+                    expect(res.body.data.totalSavings).to.have.keys("plastic", "water", "carbon");
 
                     done();
                 });
