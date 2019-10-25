@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 
 describe('Activity routes', function() {
-    this.timeout(10000);
+    this.timeout(15000);
 
     const email = "admininternetu@example.com";
     let mockedUser, authenticationToken;

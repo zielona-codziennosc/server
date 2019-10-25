@@ -17,9 +17,13 @@ export default async function(usages) {
     setTodaysSavings(this, bundledUsages);
     setTotalScores(this);
 
+    const localRelativeScores = calculateRelativeScores(this, bundledUsages);
+
+    const globalRelativeScores = calculateGlobalRelativeScores(this, bundledUsages);
+
     await this.save();
 
-    return {relativeScores: calculateRelativeScores(this, bundledUsages), totalSavings: this.totalSavings};
+    return {relativeScores: {...localRelativeScores, ...globalRelativeScores}, totalSavings: this.totalSavings};
 }
 
 const adjustForLeftoverSavings = document => {
@@ -51,6 +55,10 @@ const setTodaysSavings = (document, {voivodeship, powiat, usages: {plasticWeight
 const calculateRelativeScores = (document, {powiat, voivodeship, usages: {waterConsumption, plasticWeight}}) => {
     const {unitWideWaterConsumption, unitWidePlasticProduction} = getUnitWideConsumptions(powiat, voivodeship);
 
+    const thisTimeBetterThanPolesBy = betterThan(waterConsumption, unitWideWaterConsumption) + betterThan(plasticWeight, unitWidePlasticProduction);
+    document.lifestyleBetterThan.neighbours = ((document.lifestyleBetterThan.poles * (document.activitySubmissionsCount - 1)) + thisTimeBetterThanPolesBy) / document.activitySubmissionsCount;
+
+
     return {
         waterConsumptionBetterBy: betterThan(waterConsumption, unitWideWaterConsumption),
         plasticProductionBetterBy: betterThan(plasticWeight, unitWidePlasticProduction),
@@ -58,6 +66,27 @@ const calculateRelativeScores = (document, {powiat, voivodeship, usages: {waterC
         commuteWouldCutCarbonEmmissionsByAbsolute: document.todaysSavings.carbon
     };
 };
+
+const calculateGlobalRelativeScores = (document, {usages: {waterConsumption, plasticWeight}}) => {
+
+    const {lifestyleBetterThan: {europeans, poles, neighbours}, activitySubmissionsCount} = document;
+
+    const EUROPE_AVG_WATER_CONSUMPTION = 144;
+    const EUROPE_AVG_PLASTIC_PRODUCTION = 0.084;
+
+    const thisTimeBetterThanEuropeansBy = (betterThan(waterConsumption, EUROPE_AVG_WATER_CONSUMPTION) + betterThan(plasticWeight, EUROPE_AVG_PLASTIC_PRODUCTION)) / 2;
+
+    document.lifestyleBetterThan.europeans = ((europeans * (activitySubmissionsCount - 1)) + thisTimeBetterThanEuropeansBy) / activitySubmissionsCount;
+
+    const POLAND_AVG_WATER_CONSUMPTION = 150;
+    const POLAND_AVG_PLASTIC_PRODUCTION = 0.95;
+
+    const thisTimeBetterThanPolesBy = (betterThan(waterConsumption, POLAND_AVG_WATER_CONSUMPTION) + betterThan(plasticWeight, POLAND_AVG_PLASTIC_PRODUCTION)) / 2;
+    document.lifestyleBetterThan.poles = ((poles * (activitySubmissionsCount - 1)) + thisTimeBetterThanPolesBy) / activitySubmissionsCount;
+
+    return {thisTimeBetterThanEuropeansBy, thisTimeBetterThanPolesBy};
+};
+
 
 const getUnitWideConsumptions = (powiat, voivodeship) => ({
     unitWideWaterConsumption: powiat?.averageDailyWaterConsumption || voivodeship?.averageDailyWaterConsumption,

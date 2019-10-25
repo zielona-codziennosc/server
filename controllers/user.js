@@ -2,7 +2,7 @@ import User from '../models/user';
 
 const get = async (req, res) => {
     const { userId } = req.value.params;
-    const user = await User.findById(userId).select("email nickname profile_photo APIs");
+    const user = await User.findById(userId).select("email nickname lifestyleBetterThan totalSavings");
     res.status(200).json(user);
 };
 
