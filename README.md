@@ -1,13 +1,11 @@
-# (nazwa) backend 🎉🎉🎉🎉🎉🎉
+# Zielona codzienność's backend 🎉🎉🎉🎉🎉🎉
 
 [![Build Status](https://travis-ci.com/anteeek/hackheroes_temp_server.svg?token=FMjKkwfuVYj8mskr7sDm&branch=master)](https://travis-ci.com/anteeek/hackheroes_temp_server) master
 
 [![Build Status](https://travis-ci.com/anteeek/hackheroes_temp_server.svg?token=FMjKkwfuVYj8mskr7sDm&branch=development)](https://travis-ci.com/anteeek/hackheroes_temp_server) development
 
 
-#### (nazwa)'s server. 
-
-###  [Demo](https://hackheroesserver.antek.now.sh/)
+###  [Demo](https://trace.papiewski.tk)
 
 ## Installation
 
@@ -66,10 +64,3 @@ npm test
    
         `photo` attribute is needed. This endpoint is  `multipart` only.
         Adds a photo to user's profile. 
-     
-     
-***
-
-# To do:
- * Add searching units with text (possibly on the front-end)
- * Add face detection for photos
