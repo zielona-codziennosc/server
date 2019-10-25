@@ -1,11 +1,11 @@
-export default async function({email, given_name}) {
+export default async function(email) {
 
     const seekedUser = await this.findOne({email});
 
     if(seekedUser)
         return seekedUser;
 
-    const newUser = new this({email, name: given_name});
+    const newUser = new this({email});
 
     await newUser.save();
 

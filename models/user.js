@@ -1,14 +1,10 @@
 import { Schema, model } from 'mongoose';
 
 import ensureFieldUniquity from "./utils/ensureFieldUniquity";
-import { accountOfPayload, todaysActivity, updateWithUnits } from "./utils";
-import {hashPassword, hashPasswordAfterUpdate, checkPassword} from "./utils/user/password";
+import { accountOfEmail, todaysActivity, updateWithUnits } from "./utils";
 
 const UserSchema = new Schema({
     email: { type: String, required: true, unique: true},
-    name: { type: String, required: true },
-    password: { type: String, required: false },
-
 
     gusPowiatUnitId: { type: String, default: "000000000000" },
     gusVoivodeshipUnitId: { type: String, default: "000000000000" },
@@ -35,12 +31,9 @@ const UserSchema = new Schema({
 
 UserSchema.pre(['save', 'findOneAndUpdate', 'findByIdAndUpdate'], ensureFieldUniquity("email"));
 
-UserSchema.pre('save', hashPassword);
-UserSchema.pre('findOneAndUpdate', hashPasswordAfterUpdate);
+UserSchema.methods = {todaysActivity};
 
-UserSchema.methods = {todaysActivity, checkPassword};
-
-UserSchema.static("accountOfPayload", accountOfPayload);
+UserSchema.static("accountOfEmail", accountOfEmail);
 UserSchema.static("updateWithUnits", updateWithUnits);
 
 export default model('user', UserSchema);

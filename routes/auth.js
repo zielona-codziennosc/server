@@ -6,16 +6,10 @@ import {validateBody, schema, stripAuthorizationHeader} from '../helpers/joiReso
 const router = expressPromiseRouter();
 
 
-router.route('/google')
-    .post(validateBody(schema.auth.google), Controller.google);
-
-router.route("/login")
+router.route('/login')
     .post(validateBody(schema.auth.login), Controller.login);
 
 router.route("/logout")
     .post(stripAuthorizationHeader, Controller.logout);
-
-router.route("/register")
-    .post(validateBody(schema.auth.register), Controller.register);
 
 export default router;

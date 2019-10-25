@@ -5,20 +5,19 @@ import {OAuth2Client} from "google-auth-library";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-const google = async (req, res) => {
+const login = async (req, res) => {
     const { googleIdToken } = req.value.body;
 
     try {
-        const { payload } = await googleClient.verifyIdToken({
+        const { payload: { email } } = await googleClient.verifyIdToken({
             idToken: googleIdToken,
             audience: process.env.GOOGLE_AUDIENCE_CLIENT_ID
         });
 
-        const seeekedUser = await User.accountOfPayload(payload);
-
+        const seeekedUser = await User.accountOfEmail(email);
 
         const expiresIn = 60 * 60;
-        const token = jwt.sign({email: payload.email, id: seeekedUser._id}, process.env.JWT_SECRET, {expiresIn});
+        const token = jwt.sign({email, id: seeekedUser._id}, process.env.JWT_SECRET, {expiresIn});
 
         res.status(200).json({success: true, id: seeekedUser._id, token, expiresIn});
     }
@@ -26,22 +25,6 @@ const google = async (req, res) => {
         res.status(400).json({success: false, message: "Something went wrong"});
     }
 
-};
-
-const login = async (req, res) => {
-    const {email, password} = req.value.body;
-
-    const targetUser = await User.findOne({email});
-    const passwordValid = await targetUser?.checkPassword(password);
-
-    if(passwordValid) {
-        const expiresIn = 60 * 60;
-        const token = jwt.sign({email: targetUser.email, id: targetUser._id}, process.env.JWT_SECRET, {expiresIn});
-
-        res.status(200).json({success: true, id: targetUser._id, token, expiresIn})
-    }
-    else
-        res.status(401).json({success: false});
 };
 
 const logout = (req, res) => {
@@ -63,13 +46,5 @@ const logout = (req, res) => {
     }
 };
 
-const register = async (req, res) => {
-  const newUser = new User(req.value.body);
 
-  await newUser.save();
-
-  res.status(201).json({success: true, id: newUser._id});
-};
-
-
-export default {google, login, logout, register};
+export default {login,logout};

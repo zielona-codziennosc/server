@@ -48,17 +48,8 @@ export const validateBody = schema => {
 
 export const schema = {
     auth: {
-        google: Joi.object().keys({
-            googleIdToken: Joi.string().regex(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/).required()
-        }),
-        register: Joi.object().keys({
-            email: Joi.string().required(),
-            name: Joi.string().required(),
-            password: Joi.string().min(6).required()
-        }),
         login: Joi.object().keys({
-            email: Joi.string().email(),
-            password: Joi.string().min(6).required()
+            googleIdToken: Joi.string().regex(/^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/).required()
         })
     },
     activity: {
