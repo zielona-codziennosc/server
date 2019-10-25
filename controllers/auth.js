@@ -12,17 +12,18 @@ const login = async (req, res) => {
         const { payload } = await googleClient.verifyIdToken({
             idToken: googleIdToken,
             audience: process.env.GOOGLE_AUDIENCE_CLIENT_ID
-        });
+        }).catch(console.log);
 
-        const seeekedUser = await User.accountOfPayload(payload);
+        const seekedUser = await User.accountOfPayload(payload);
 
 
         const expiresIn = 60 * 60;
-        const token = jwt.sign({email: payload.email, id: seeekedUser._id}, process.env.JWT_SECRET, {expiresIn});
+        const token = jwt.sign({email: payload.email, id: seekedUser._id}, process.env.JWT_SECRET, {expiresIn});
 
-        res.status(200).json({success: true, id: seeekedUser._id, token, expiresIn, name: seekedUser.name});
+        res.status(200).json({success: true, id: seekedUser._id, token, expiresIn, name: seekedUser.name});
     }
     catch(e) {
+        console.log(e);
         res.status(400).json({success: false, message: "Something went wrong"});
     }
 
