@@ -20,7 +20,7 @@ const login = async (req, res) => {
         const expiresIn = 60 * 60;
         const token = jwt.sign({email: payload.email, id: seeekedUser._id}, process.env.JWT_SECRET, {expiresIn});
 
-        res.status(200).json({success: true, id: seeekedUser._id, token, expiresIn});
+        res.status(200).json({success: true, id: seeekedUser._id, token, expiresIn, name: seekedUser.name});
     }
     catch(e) {
         res.status(400).json({success: false, message: "Something went wrong"});
