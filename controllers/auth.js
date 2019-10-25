@@ -9,15 +9,16 @@ const login = async (req, res) => {
     const { googleIdToken } = req.value.body;
 
     try {
-        const { payload: { email } } = await googleClient.verifyIdToken({
+        const { payload } = await googleClient.verifyIdToken({
             idToken: googleIdToken,
             audience: process.env.GOOGLE_AUDIENCE_CLIENT_ID
         });
 
-        const seeekedUser = await User.accountOfEmail(email);
+        const seeekedUser = await User.accountOfPayload(payload);
+
 
         const expiresIn = 60 * 60;
-        const token = jwt.sign({email, id: seeekedUser._id}, process.env.JWT_SECRET, {expiresIn});
+        const token = jwt.sign({email: payload.email, id: seeekedUser._id}, process.env.JWT_SECRET, {expiresIn});
 
         res.status(200).json({success: true, id: seeekedUser._id, token, expiresIn});
     }
